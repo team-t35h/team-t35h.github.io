@@ -23,6 +23,7 @@ defaults:
 
 collections:
   - members
+  - events
 
 future: true
 plugins:
