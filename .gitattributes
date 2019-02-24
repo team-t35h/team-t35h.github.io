@@ -1,2 +1,6 @@
 assets/* linguist-vendored
 css/* linguist-vendored
+_includes/* linguist-vendored
+js/* linguist-vendored
+_layouts/* linguist-vendored
+_sass/* linguist-vendored
