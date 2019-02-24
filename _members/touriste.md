@@ -1,6 +1,6 @@
 ---
 name: Touriste
-logo: https://i.imgur.com/asCOUnC.jpg
+logo: https://i.imgur.com/zCIuIDe.jpg
 specialties: Pwn
 job: 3rd year master student
 ---
