@@ -4,11 +4,11 @@ published: true
 ---
 
 <ul style="margin-bottom: 50px">
-  <li><a href="#web">Web [500 points]</a></li>
+  <li><a href="#web">Web: NoteBad.exe [500 points]</a></li>
 </ul>
 
 
-# [](#web)WEB [ 500 points ] (Author: zTeeed)
+# [](#web)WEB: NoteBad.exe [ 500 points ] (Author: zTeeed)
 
 ## [](#presentation)Presentation
 
