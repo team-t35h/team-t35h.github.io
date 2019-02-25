@@ -1,6 +1,6 @@
 ---
 name: Syngard
-logo: https://cdn.discordapp.com/avatars/
+logo: https://anotherimg-dazedgroup.netdna-ssl.com/600/azure/another-prod/80/4/84227.jpg
 specialties: Mediocre at everything
 job: Master 2 Student
 ---
