@@ -42,7 +42,8 @@ Physical Size = 391168
 Comment = 
 System: LINUX
 Volume: CDROM
-Application: GENISOIMAGE ISO 9660/HFS FILESYSTEM CREATOR (C) 1993 E.YOUNGDALE (C) 1997-2006 J.PEARSON/J.SCHILLING (C) 2006-2007 CDRKIT TEAM
+Application: GENISOIMAGE ISO 9660/HFS FILESYSTEM CREATOR (C) 1993 E.YOUNGDALE (C) 
+1997-2006 J.PEARSON/J.SCHILLING (C) 2006-2007 CDRKIT TEAM
 Created = 2019-01-20 13:49:22
 Modified = 2019-01-20 13:49:22
 
@@ -58,7 +59,9 @@ Let's open the `pcap` file in WireShark. We can see that there are some `TLS 1.2
 
 ```
 $ cat challenge_network.keys 
-CLIENT_RANDOM 5c44694d7d7869bfe4b0717a11393859b46494580e7ca4326e3d2d80aadd158a 14e4a39585cc8b7cedc8ce01a1f6309f8d11777011d370cc07cf691298d5322eb38c48264e10d1c3f6bdfbddb3c9e84d
+CLIENT_RANDOM 5c44694d7d7869bfe4b0717a11393859b46494580e7ca4326e3d2d80aadd158a 14e4
+a39585cc8b7cedc8ce01a1f6309f8d11777011d370cc07cf691298d5322eb38c48264e10d1c3f6bdfbd
+db3c9e84d
 ```
 
 What kind of file is that ? A quick google search gives us [all the answers we need](https://developer.mozilla.org/en-US/docs/Mozilla/Projects/NSS/Key_Log_Format). So now we now where to plug the key in WireShark and hopefully that will decrypt the network traffic.
@@ -107,7 +110,7 @@ The interesting thing here is that they indicate that the zip file is password-p
 
 ## [](#step3)Step 3: Cracking the zip file
 
-Since the password is supposedly easy to guess, it's pretty likely that it is in a classic password dictionnary. Obviously we won't try to guess it by hand but there is a plethora of tools to do this kind of work. As for me, I tend to use [this one](https://passwordrecovery.io/zip-file-password-removal/). We upload the zip file and are almost immidiately rewarded with: `Success!! The password for secret.zip was found: thuglife`
+Since the password is supposedly easy to guess, it's pretty likely that it is in a classic password dictionnary. Obviously we won't try to guess it by hand but there is a plethora of tools to do this kind of work. As for me, I tend to use [this one](https://passwordrecovery.io/zip-file-password-removal/). We upload the zip file and are almost immediately rewarded with: `Success!! The password for secret.zip was found: thuglife`
 
 We then juste have to open the archive with this password.
 
