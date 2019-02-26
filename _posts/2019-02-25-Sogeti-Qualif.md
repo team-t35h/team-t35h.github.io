@@ -9,6 +9,7 @@ published: true
 </ul>
 
 
+<span id="web" />
 # [](#web)WEB: NoteBad.exe [ 493 points ] (Author: zTeeed)
 
 ## [](#presentation)Presentation
@@ -149,6 +150,7 @@ if __name__ == '__main__':
 ```
 
 
+<span id="re1" />
 # [](#re1)RE: Be3rP4ck [ 495 points ] (Author: AK)
 
 This is a 64-bit ELF file. 
