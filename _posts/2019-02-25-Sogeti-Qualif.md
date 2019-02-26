@@ -385,6 +385,8 @@ $ file real_program
 real_program: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), statically linked, Go BuildID=b5b5bb9544aeca5d8e3dd360bad2dfb3f9d87aacA, not stripped
 ```
 
+PS: The extracted program can be executed with 2 arguments.
+
 ## [](#part-3) Analysing the real program
 It's a program written in Go. The main.main function is called `runtime_text` here. 
 <br /><br />
@@ -402,7 +404,7 @@ After examining this function, I noticed that if I enter "almost_it", it would p
 .text:0000000000401289                 call    runtime_eqstring
 .text:000000000040128E                 movzx   eax, byte ptr [rsp+0B8h+var_A0+8]
 .text:0000000000401293                 test    al, al
-.text:0000000000401295                 jnz     short loc_40129C
+.text:0000000000401295                 jnz     short loc_40129C         ; print a wrong flag
 ```
 ```
 $ ./Be3rP4ck almost_it
@@ -448,7 +450,7 @@ print(flag)
 ```
 
 ```
- ./Be3rP4ck SCE{Th1s_1s_th3_r3al_fl4g_w3ll_d0ne\!\!\!}
+$ ./Be3rP4ck SCE{Th1s_1s_th3_r3al_fl4g_w3ll_d0ne\!\!\!}
 -- Real program --
 Give me the real flag
 Congratulations, you can use this flag to validate :)
