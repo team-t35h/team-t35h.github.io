@@ -129,18 +129,21 @@ SCE{Th1s_1s_our_n3w_k3y-w0rd}
 
 ## [](#presentation)Presentation
 
-The website enables to create notes by creating accounts, after some
-investigation we can "guess" that the server is displaying the notes making the following request:
+The website allows a registered user to create notes. By creating a few test acounts, we realised that the service is actually linking notes to usernames instead of a hidden user ID. This means that we can acess other users' notes by creating new accounts with the same username. We guessed that the flag could be found in the notes of the user `admin`. However, there is some sort of validation in the backend that forbids the creation of an account named `admin`.
+
+Since the service associates notes to a username, that would mean that the server is actually fetching the notes with the following request:
 
 ```php
 $query = "SELECT note from notes where username=$username;";
 ```
 
-So, the username parameter is injectable. Lets try some payloads... 
+That would mean that the username parameter is injectable. Lets try some payloads.
 
 <img src="/images/writeups/sogeti/web/01_add_note_example.png">
 
 ## [](#method-1)Method 1: Using the browser
+
+To keep the writeup short, I'll only show the usernamed I registered the account with and the resulting notes found when connecting to the service.
 
 ```text
 t35h' union select database()#
