@@ -9,6 +9,116 @@ published: true
 </ul>
 
 
+# [](#network): N3tC4p [ ??? points ] (Author: Syngard)
+
+## [](#presentation)Presentation
+
+We are given a file name `USB.iso` which appears to be a disk image.
+```
+$ file USB.iso 
+USB.iso: ISO 9660 CD-ROM filesystem data 'CDROM'
+```
+
+## [](#step1)Step 1: Extrating the files
+
+The first thing we have to do is to extract whatever file is in the image.
+There are [several ways to do so via the command line](https://www.tecmint.com/extract-files-from-iso-files-linux/) and I chose to use 7zip as it's pretty straightforward.
+
+```
+$ 7z x USB.iso     
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,4 CPUs Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz (406E3),ASM)
+
+Scanning the drive for archives:
+1 file, 391168 bytes (382 KiB)
+
+Extracting archive: USB.iso
+--
+Path = USB.iso
+Type = Iso
+Physical Size = 391168
+Comment = 
+System: LINUX
+Volume: CDROM
+Application: GENISOIMAGE ISO 9660/HFS FILESYSTEM CREATOR (C) 1993 E.YOUNGDALE (C) 1997-2006 J.PEARSON/J.SCHILLING (C) 2006-2007 CDRKIT TEAM
+Created = 2019-01-20 13:49:22
+Modified = 2019-01-20 13:49:22
+
+$ ls
+DOCUMENT  LINKS  PICTURE  USB.iso
+```
+
+We then find a zip archive in the `DOCUMENT` folder. Inside are two files: `challenge_network.keys` and `challenge_network.pcapng`
+
+## [](#step2)Step 2: Exploiting the network capture
+
+Let's open the `pcap` file in WireShark. We can see that there are some `TLS 1.2` packets, which means that the part of the traffic is encrypted. But we also found a `.keys` file, so that may be useful. 
+
+```
+$ cat challenge_network.keys 
+CLIENT_RANDOM 5c44694d7d7869bfe4b0717a11393859b46494580e7ca4326e3d2d80aadd158a 14e4a39585cc8b7cedc8ce01a1f6309f8d11777011d370cc07cf691298d5322eb38c48264e10d1c3f6bdfbddb3c9e84d
+```
+
+What kind of file is that ? A quick google search gives us [all the answers we need](https://developer.mozilla.org/en-US/docs/Mozilla/Projects/NSS/Key_Log_Format). So now we now where to plug the key in WireShark and hopefully that will decrypt the network traffic.
+
+Once we tell WireShark to use the key file, we can see the network traffic in clear.
+
+The most apparent thing is the `HTTP` request/response that is now appearing. It seems like it was a request to download a file named `secret.zip`. To retrieve it, we ccan use File -> Export Object -> HTTP and save the only file detected. 
+
+Before moving on with the zip file, I'd like to mention that there is another interesting element in the `.pcap` file: some IRC packets excange. Choosing Follow -> TCP Stream on one of them gives us the following conversation :
+
+```
+NICK /SERVER
+USER pixis kali 192.168.56.1 :*Unknown*
+:work 432 * /SERVER :Erroneous nickname
+NICK pixis
+:work 001 pixis :Hi, welcome to IRC
+:work 002 pixis :Your host is work, running version miniircd-1.2.1
+:work 003 pixis :This server was created sometime
+:work 004 pixis work miniircd-1.2.1 o o
+:work 251 pixis :There are 2 users and 0 services on 1 server
+:work 422 pixis :MOTD File is missing
+JOIN #secret 
+:pixis!pixis@192.168.56.101 JOIN #secret
+:work 331 pixis #secret :No topic is set
+:work 353 pixis = #secret :J0hnD0e pixis
+:work 366 pixis #secret :End of NAMES list
+MODE #secret
+:work 324 pixis #secret +
+PRIVMSG #secret :Yo
+:J0hnD0e!pixis@127.0.0.1 PRIVMSG #secret :Yo man
+PRIVMSG #secret :Il marche plus le mot de passe ?
+:J0hnD0e!pixis@127.0.0.1 PRIVMSG #secret :Nan il est updated
+:J0hnD0e!pixis@127.0.0.1 PRIVMSG #secret :https://192.168.56.1/secret.zip
+PRIVMSG #secret :Ah merci ! Mais c'est password protected :(
+PRIVMSG #secret :Ah c'est bon, password found, easy to guess !
+PRIVMSG #secret :++ (Au fait, t'as vu mon blog ? https://beta.hackndo.com)
+:J0hnD0e!pixis@127.0.0.1 PRIVMSG #secret :Nickel ! Ouais, of course
+:J0hnD0e!pixis@127.0.0.1 PRIVMSG #secret :++
+:J0hnD0e!pixis@127.0.0.1 PART #secret :J0hnD0e
+PART #secret  
+:pixis!pixis@192.168.56.101 PART #secret :pixis
+QUIT :Leaving
+```
+
+The interesting thing here is that they indicate that the zip file is password-protected but that the password is easy to guess.
+
+## [](#step3)Step 3: Cracking the zip file
+
+Since the password is supposedly easy to guess, it's pretty likely that it is in a classic password dictionnary. Obviously we won't try to guess it by hand but there is a plethora of tools to do this kind of work. As for me, I tend to use [this one](https://passwordrecovery.io/zip-file-password-removal/). We upload the zip file and are almost immidiately rewarded with: `Success!! The password for secret.zip was found: thuglife`
+
+We then juste have to open the archive with this password.
+
+```
+$ unzip secret.zip  
+Archive:  secret.zip
+[secret.zip] newpassword.txt password: 
+ extracting: newpassword.txt         
+$ cat newpassword.txt 
+SCE{Th1s_1s_our_n3w_k3y-w0rd}
+```
+
 # [](#web)WEB: NoteBad.exe [ 493 points ] (Author: zTeeed)
 
 ## [](#presentation)Presentation
@@ -266,6 +376,7 @@ If an argument is given, we arrive on the function `fetch_data`. This is the fun
 ...
 ```
 I put a breakpoint at `0x400F56 call mb_xor` and I noticed that `rdi` contains the chars "ELF" after executing this instruction. 
+
 <img src="/images/writeups/sogeti/re1_02.png">
 
 So I extracted the 0x13455c bytes of data (size in `rsi`) stored at the address contained in `rdi` and I got a new ELF file which corresponds to the real program. 
@@ -276,7 +387,9 @@ real_program: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), statically li
 
 ## [](#part-3) Analysing the real program
 It's a program written in Go. The main.main function is called `runtime_text` here. 
+
 <img src="/images/writeups/sogeti/re1_03.png">
+
 After examining this function, I noticed that if I enter "almost_it", it would print another wrong flag...
 
 ```assembly
