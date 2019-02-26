@@ -10,7 +10,7 @@ published: true
 </ul>
 
 
-# [](#network): N3tC4p [ 479 points ] (Author: Syngard)
+# [](#network) N3tC4p [ 479 points ] (Author: Syngard)
 
 ## [](#presentation)Presentation
 
