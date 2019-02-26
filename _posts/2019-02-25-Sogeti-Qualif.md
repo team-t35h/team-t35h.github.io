@@ -469,7 +469,7 @@ SCE{Th1s_1s_th3_r3al_fl4g_w3ll_d0ne!!!}
 <span id="pwn1" />
 # [](#re1)PWN: GameEditor (Free version) [ 486 points ] (Author: Touriste)
 
-I was given this challenge after my team-mates flagged it on the "sogeti qualif" platform. Here is my solution.
+I was given this challenge after my teammates flagged it on the "sogeti qualif" platform. I wanted to give it a try, so here is my solution.
 
 ## Presentation
 We were given a source code file and an IP address to try our payloads.
