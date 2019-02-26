@@ -29,7 +29,8 @@ There are [several ways to do so via the command line](https://www.tecmint.com/e
 $ 7z x USB.iso     
 
 7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
-p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,4 CPUs Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz (406E3),ASM)
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,4 CPUs 
+Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz (406E3),ASM)
 
 Scanning the drive for archives:
 1 file, 391168 bytes (382 KiB)
