@@ -669,7 +669,7 @@ We have here a **dangling pointer**: after this routine **player** will point to
 
 Now player points to unallocated data in memory:
 
-![players points to unallocated data](/images/writeups/sogeti/pwn/02_player_unallocted.png)
+![players points to unallocated data](/images/writeups/sogeti/pwn/02_player_unallocated.png)
 
 ## Re-allocating memory at the same place
 
