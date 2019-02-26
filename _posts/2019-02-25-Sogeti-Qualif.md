@@ -168,8 +168,10 @@ $ ./Be3rP4ck
 Flag: test
 ```
 
-Let's analyze the `main` function. 
+Let's analyze the `main` function.
+ 
 <img src="/images/writeups/sogeti/re1_01.png">
+
 The user input is stored in `[rbp+string]`. The program performs several operations on our input: a `xor` with `0x87` and 4 `not`. Finally it is compared with the value stored at `unk_401210`. 
 
 So, to recover the flag, I just xored the data in `unk_401210` with `0x87`. 
