@@ -15,7 +15,7 @@ published: true
 
 ## [](#presentation)Presentation
 
-We are given a file name `USB.iso` which appears to be a disk image.
+We are given a file named `USB.iso`, which appears to be a disk image.
 ```
 $ file USB.iso 
 USB.iso: ISO 9660 CD-ROM filesystem data 'CDROM'
