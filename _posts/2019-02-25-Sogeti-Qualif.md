@@ -387,7 +387,11 @@ I put a breakpoint at `0x400F56 call mb_xor` and I noticed that `rdi` contains t
 <br /><br />
 <img src="/images/writeups/sogeti/re/re1_02.png">
 
-So I extracted the 0x13455c bytes of data (size in `rsi`) stored at the address contained in `rdi` and I got a new ELF file which corresponds to the real program. 
+So I copied the 0x13455c bytes of data (size in `rsi`) stored at the address contained in `rdi` and I pasted it in a hexadecimal editor called HxD. 
+<br /><br />
+<img src="/images/writeups/sogeti/re/re1_04.png">
+
+After saving it, I got a new ELF which corresponds to the real program. 
 ```
 $ file real_program 
 real_program: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), statically linked, Go BuildID=b5b5bb9544aeca5d8e3dd360bad2dfb3f9d87aacA, not stripped
