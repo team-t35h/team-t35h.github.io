@@ -1,6 +1,6 @@
 ---
 name: zTeeed
-logo: https://cdn.discordapp.com/avatars/139096295796244480/5c10e14799cf67f9faae92d118ca0831.png
+logo: https://secure.gravatar.com/avatar/b6fc3ff4202b37b1b2f77893a431e532
 specialties: Programming/Web
 job: Master 1 Student at Telecom SudParis
 github: https://github.com/zteeed
