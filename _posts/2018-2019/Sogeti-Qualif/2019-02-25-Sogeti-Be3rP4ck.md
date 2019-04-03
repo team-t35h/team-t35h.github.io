@@ -1,5 +1,8 @@
 ---
 title: Sogeti Qualif - reverse - Be3rP4ck
+ctf: "SogetiQuals"
+year: "2019"
+author: "AK"
 published: true
 ---
 

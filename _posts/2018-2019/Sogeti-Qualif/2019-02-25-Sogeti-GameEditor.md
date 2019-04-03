@@ -1,5 +1,8 @@
 ---
 title: Sogeti Qualif - pwn - GameEditor
+ctf: "SogetiQuals"
+year: "2019"
+author: "Touriste"
 published: true
 ---
 

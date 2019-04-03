@@ -1,5 +1,8 @@
 ---
 title: Sogeti Qualif - web - NoteBad.exe
+ctf: "SogetiQuals"
+year: "2019"
+author: "zTeeed"
 published: true
 ---
 
