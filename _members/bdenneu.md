@@ -1,5 +1,5 @@
 ---
-name: zTeeed
+name: Bdenneu
 logo: https://secure.gravatar.com/avatar/a8db624b9488d391bd29064c948a8e45
 specialties: Programming/Web
 job: License 3 Student at Telecom SudParis
