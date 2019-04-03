@@ -2,12 +2,77 @@
 layout: default
 ---
 
-<ul>
+{% assign years = '' | split: '' %}
+{% assign ctfs = '' | split: '' %}
+{% assign zzzzzzzzzzzzzzzzzz = '' | split: '' %}
+{% assign ctfd = '' | split: '' %}
+{% assign delim = ',' | split: '' %}
+
+{% for post in paginator.posts %}
+    <!--
+    <h2><a href="{{ post.url | prepend: site.baseurl | replace: '//', '/' }}">{{ post.title }}</a></h2>
+    -->
+
+    {% unless zzzzzzzzzzzzzzzzzz contains post.year %}
+        {% assign year = post.year | split: '' %}
+        {% assign years = years | concat: year | concat: delim | join: '' %}
+    {% endunless %}
+        {% assign zzzzzzzzzzzzzzzzzz = years | split: ',' %}
+
+    {% unless ctfd contains post.ctf %}
+        {% assign ctf = post.ctf | split: '' %}
+        {% assign ctfs = ctfs | concat: ctf | concat: delim | join: ''%}
+    {% endunless %}
+        {% assign ctfd = ctfs | split: ',' %}
+
+{% endfor %}
+
+{% assign years = years | split: ',' | sort | reverse %}
+{% assign ctfs = ctfs | split: ',' %}
+{% assign test = false %}
+
+<h1 align="center"><b>Writeups</b></h1>
+
+
+{% for year in years %}
+  <h1>{{ year }}: </h1>
+  {% for ctf in ctfs %}
     {% for post in paginator.posts %}
-      <li>
-          <h2><a href="{{ post.url | prepend: site.baseurl | replace: '//', '/' }}">{{ post.title }}</a></h2>
-          <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date_to_string }}</time>
-          <p>{{ post.content | strip_html | truncatewords:50 }}</p>
-      </li>
+      {% if post.year == year and post.ctf == ctf %}
+        {% assign test = true %}
+      {% endif %}
     {% endfor %}
-</ul>
+    {% if test == true %}
+    <h2 class="cliquable">_{{ ctf }}</h2>
+      <ul class="retractable">
+      {% for post in paginator.posts %}
+        {% if post.year == year and post.ctf == ctf %}
+      <li>
+	  <h3>
+            <a href="{{ post.url | prepend: site.baseurl | replace: '//', '/' }}">{{ post.title }}</a>
+	  </h3>
+      </li>
+
+	{% endif %}
+      {% endfor %}
+      </ul>
+    {% endif %}
+    {% assign test = false %}
+  {% endfor %}
+{% endfor %}
+
+
+<style>
+.cliquable {
+  color: #63c0f5;
+  cursor: pointer;
+  transition: 0.4s;
+}
+
+.retractable {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+}
+</style>
+<script src="/js/menu.js"></script>
