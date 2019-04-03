@@ -30,6 +30,8 @@ plugins:
   - jekyll-seo-tag
   - jekyll-paginate
   - jekyll-sitemap
+  - jekyll-menus
+
 
 # Custom variables
 owner : "T35H"
